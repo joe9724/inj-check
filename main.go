@@ -110,7 +110,7 @@ func Do(w http.ResponseWriter, req *http.Request) {
 	//签到,先检查是否已签到
 	var list []model.CheckModel
 	db.Raw("select id,user_id,create_time,`status` from btk_Check where user_id=? and to_days(create_time) = to_days(now())",utils.DeUserID(req.URL.Query().Get("euid"))).Find(&list)
-	fmt.Println()
+	fmt.Println("select id,user_id,create_time,`status` from btk_Check where user_id=? and to_days(create_time) = to_days(now())",utils.DeUserID(req.URL.Query().Get("euid")))
 	if len(list)==0{ //当天还没有签到，可以正常签到
 		db.Exec("insert into btk_Check(user_id) values(?)",utils.DeUserID(req.URL.Query().Get("euid")))
 		msg = "签到成功"
