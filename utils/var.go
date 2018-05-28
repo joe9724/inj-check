@@ -2,28 +2,33 @@ package utils
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/jinzhu/gorm"
+	"strconv"
+	"inj-check/model"
 )
 
-func Response200(code int64,msg string) (string) {
-	/*fmt.Println(code)
-	fmt.Println(msg)
-	responseStr := `{
-    "code": 201,
-    "msg": "ok"
-    }`
-	return responseStr*/
-	var response Respoonse
-	response.Code = code
-	response.Msg = msg
-
-	out, _ := json.Marshal(response)
-	fmt.Println("ous is",out)
-	return(string(out))
-
+type Response struct{
+	Code int64 `json:"code"`
+	Msg string `json:"msg"`
+	Data []model.CheckModel `json:"data"`
 }
 
+func Response200(code int64, msg string) (string) {
+	var response Response
+	response.Code = code
+	response.Msg = msg
+	out, _ := json.Marshal(response)
+	return(string(out))
+}
+
+func EnUserID(userid int64) (string){
+	return strconv.FormatInt(userid,10)
+}
+
+func DeUserID(euid string) (int64){
+	userid, _ := strconv.ParseInt(euid, 10, 64)
+	return userid
+}
 type Respoonse struct{
 	Code int64 `json:"code,omitempty"`
 	// cover

@@ -1,5 +1,12 @@
 package model
 
+type CheckModel struct{
+	ID int64 `json:"id"`
+	UserID int64 `json:"user_id"`
+	CreateTime string `json:"create_time"`
+	Status int64 `json:"status"`
+}
+
 //启动页model
 type StartUpModel struct{
 	// download Url
