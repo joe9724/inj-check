@@ -36,7 +36,7 @@ func GetCheckHistory (w http.ResponseWriter, req *http.Request) {
 	var response utils.Response
 	//签到,先检查是否已签到
 	var list []model.CheckModel
-	db.Raw("select id,user_id,`status`,DATE_FORMAT(create_time,'%Y-%m-%d %h:%m:%s') as create_time from btk_Check where user_id=? and DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(create_time)",utils.DeUserID(req.URL.Query().Get("euid"))).Find(&list)
+	db.Raw("select id,user_id,`status`,DATE_FORMAT(create_time,'%Y-%m-%d %h:%m:%s') as create_time from btk_Check where user_id=? and DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(create_time) order by id desc",utils.DeUserID(req.URL.Query().Get("euid"))).Find(&list)
 	if len(list)==0{ //当天还没有签到，可以正常签到
 		//db.Exec("insert into btk_Check(user_id) values(?)",utils.DeUserID(req.URL.Query().Get("euid")))
 		msg = "7天内没有签到记录"
