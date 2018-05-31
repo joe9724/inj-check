@@ -5,6 +5,9 @@ type CheckModel struct{
 	UserID int64 `json:"user_id"`
 	CreateTime string `json:"create_time"`
 	Status int64 `json:"status"`
+	RewardName string `json:"reward_name"`
+	RewardUnit string `json:"reward_unit"`
+
 }
 
 //启动页model
